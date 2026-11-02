@@ -5,10 +5,11 @@ import northstarCss from "../northstar/northstar.css?url";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Northstar Director Portal — Student Management" },
+      { title: "Director Portal — Student Management" },
       { name: "description", content: "Director dashboard for students, admissions, faculty, attendance, fees and reports." },
-      { property: "og:title", content: "Northstar Director Portal" },
+      { property: "og:title", content: "Director Portal" },
       { property: "og:description", content: "Director dashboard for student management." },
+
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
