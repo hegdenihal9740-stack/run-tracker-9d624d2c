@@ -522,20 +522,6 @@ export default function App() {
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="support-card">
-            <div className="support-icon">
-              <Sparkles size={17} />
-            </div>
-            <strong>Need a hand?</strong>
-            <p>Explore the director guide and tips.</p>
-            <button
-              onClick={() =>
-                showToast("Director guide will be available here in the connected version.")
-              }
-            >
-              Open help centre <ArrowUpRight size={14} />
-            </button>
-          </div>
           <button className="nav-item settings-link" onClick={() => selectPage("Settings")}>
             <Settings size={18} />
             <span>Settings</span>
