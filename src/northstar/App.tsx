@@ -1302,9 +1302,6 @@ function StudentsPage({ students, filter, setFilter, search, setSearch, onAdd, o
             <button className="btn secondary" onClick={onExport}>
               <Download size={16} /> Export
             </button>
-            <button className="btn primary" onClick={onAdd}>
-              <Plus size={17} /> Add student
-            </button>
           </div>
         }
       />
