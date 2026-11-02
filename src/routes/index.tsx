@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-// @ts-expect-error - imported JSX app without types
-import App from "../northstar/App.jsx";
+import App from "../northstar/App";
 import northstarCss from "../northstar/northstar.css?url";
 
 export const Route = createFileRoute("/")({

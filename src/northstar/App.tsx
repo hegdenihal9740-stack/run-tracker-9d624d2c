@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo, useState } from 'react';
 import {
   LayoutDashboard, GraduationCap, UserRound, UserCog, Layers3, CalendarDays,
