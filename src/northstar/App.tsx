@@ -99,7 +99,7 @@ const initialStudents = [
     attendance: 96,
     fees: "Paid",
     status: "Active",
-    email: "aarav.sharma@northstar.edu",
+    email: "aarav.sharma@example.edu",
     phone: "+91 98765 12001",
     color: "lavender",
   },
@@ -112,7 +112,7 @@ const initialStudents = [
     attendance: 91,
     fees: "Pending",
     status: "Active",
-    email: "diya.reddy@northstar.edu",
+    email: "diya.reddy@example.edu",
     phone: "+91 98765 12002",
     color: "peach",
   },
@@ -125,7 +125,7 @@ const initialStudents = [
     attendance: 78,
     fees: "Paid",
     status: "Active",
-    email: "kabir.patel@northstar.edu",
+    email: "kabir.patel@example.edu",
     phone: "+91 98765 12003",
     color: "mint",
   },
@@ -138,7 +138,7 @@ const initialStudents = [
     attendance: 88,
     fees: "Paid",
     status: "Active",
-    email: "ananya.iyer@northstar.edu",
+    email: "ananya.iyer@example.edu",
     phone: "+91 98765 12004",
     color: "sky",
   },
@@ -151,7 +151,7 @@ const initialStudents = [
     attendance: 69,
     fees: "Pending",
     status: "Review",
-    email: "vihaan.rao@northstar.edu",
+    email: "vihaan.rao@example.edu",
     phone: "+91 98765 12005",
     color: "lemon",
   },
@@ -164,7 +164,7 @@ const initialStudents = [
     attendance: 94,
     fees: "Paid",
     status: "Active",
-    email: "sara.thomas@northstar.edu",
+    email: "sara.thomas@example.edu",
     phone: "+91 98765 12006",
     color: "rose",
   },
@@ -177,7 +177,7 @@ const initialStudents = [
     attendance: 83,
     fees: "Pending",
     status: "Active",
-    email: "arjun.nair@northstar.edu",
+    email: "arjun.nair@example.edu",
     phone: "+91 98765 12007",
     color: "lavender",
   },
@@ -469,7 +469,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "northstar-students.csv";
+    a.download = "students.csv";
     a.click();
     URL.revokeObjectURL(url);
     showToast("Student report exported as CSV.");
@@ -754,7 +754,7 @@ export default function App() {
                 type="email"
                 value={newStudent.email}
                 onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
-                placeholder="student@northstar.edu"
+                placeholder="student@example.edu"
               />
             </label>
             <div className="modal-actions">
@@ -2644,7 +2644,7 @@ function SettingsPage({ dark, setDark, onToast }) {
               </label>
               <label>
                 Work email
-                <input defaultValue="director@northstar.edu" type="email" />
+                <input defaultValue="director@example.edu" type="email" />
               </label>
               <label>
                 Role
