@@ -485,17 +485,7 @@ export default function App() {
         />
       )}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        <div className="brand-row">
-          <div className="brand-mark">
-            <span>N</span>
-            <Sparkles size={13} />
-          </div>
-          <div className="brand-copy">
-            <strong>
-              northstar<span>.</span>
-            </strong>
-            <small>INSTITUTION OS</small>
-          </div>
+        <div className="brand-row compact">
           <button
             className="mobile-close"
             onClick={() => setSidebarOpen(false)}
@@ -504,16 +494,7 @@ export default function App() {
             <X size={18} />
           </button>
         </div>
-        <div className="institution-switch">
-          <div className="institution-logo">
-            <GraduationCap size={20} />
-          </div>
-          <div>
-            <strong>Northstar Institute</strong>
-            <small>Academic year 2026–27</small>
-          </div>
-          <ChevronDown size={15} />
-        </div>
+
         <nav className="sidebar-nav">
           {navGroups.map((group) => (
             <div className="nav-group" key={group.label}>
@@ -696,7 +677,7 @@ export default function App() {
           )}
         </div>
         <footer className="footer">
-          <span>© 2026 Northstar Institute · Director Portal</span>
+          <span>© 2026 · Director Portal</span>
           <span>
             <span className="status-dot" /> All systems operational{" "}
             <span className="footer-divider">·</span> v1.0.0
@@ -2628,7 +2609,7 @@ function SettingsPage({ dark, setDark, onToast }) {
               <Avatar name="Nihal Director" color="peach" size="large" />
               <div>
                 <strong>Nihal Director</strong>
-                <p>Institution Director · Northstar Institute</p>
+                <p>Institution Director</p>
                 <button
                   className="text-button"
                   onClick={() => onToast("Connect profile storage to change your photo.")}
@@ -2649,10 +2630,6 @@ function SettingsPage({ dark, setDark, onToast }) {
               <label>
                 Role
                 <input value="Institution Director" readOnly />
-              </label>
-              <label>
-                Institution
-                <input defaultValue="Northstar Institute" />
               </label>
             </div>
             <div className="settings-save">
