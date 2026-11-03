@@ -275,10 +275,10 @@ const financeData = [
   { month: "Nov", amount: 48 },
 ];
 const courseData = [
-  { name: "Computer Science", value: 32, color: "#6258e8" },
-  { name: "Artificial Intelligence", value: 27, color: "#21b6a8" },
-  { name: "Information Science", value: 22, color: "#ffb45d" },
-  { name: "Electronics", value: 19, color: "#f07891" },
+  { name: "Computer Science", value: 32, color: "var(--purple)" },
+  { name: "Artificial Intelligence", value: 27, color: "var(--mint)" },
+  { name: "Information Science", value: 22, color: "var(--orange)" },
+  { name: "Electronics", value: 19, color: "var(--pink)" },
 ];
 
 const initials = (name = "Director") =>
@@ -931,8 +931,8 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
               <AreaChart data={enrollmentData} margin={{ top: 12, right: 5, left: -22, bottom: 0 }}>
                 <defs>
                   <linearGradient id="studentGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#6d61ed" stopOpacity={0.22} />
-                    <stop offset="100%" stopColor="#6d61ed" stopOpacity={0.01} />
+                    <stop offset="0%" stopColor="var(--purple)" stopOpacity={0.22} />
+                    <stop offset="100%" stopColor="var(--purple)" stopOpacity={0.01} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 5" vertical={false} stroke="var(--chart-grid)" />
@@ -960,7 +960,7 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
                 <Area
                   type="monotone"
                   dataKey="students"
-                  stroke="#6d61ed"
+                  stroke="var(--purple)"
                   strokeWidth={2.8}
                   fill="url(#studentGradient)"
                   activeDot={{ r: 5 }}
@@ -968,7 +968,7 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
                 <Area
                   type="monotone"
                   dataKey="admissions"
-                  stroke="#25b8a8"
+                  stroke="var(--mint)"
                   strokeWidth={2}
                   fill="transparent"
                   activeDot={{ r: 4 }}
@@ -1077,7 +1077,7 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
                   }}
                   formatter={(v) => [`₹${v}L`, "Collected"]}
                 />
-                <Bar dataKey="amount" fill="#6258e8" radius={[5, 5, 0, 0]} barSize={21} />
+                <Bar dataKey="amount" fill="var(--purple)" radius={[5, 5, 0, 0]} barSize={21} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -1932,7 +1932,7 @@ function FinancePage({ onToast }) {
                 }}
                 formatter={(v) => [`₹${v}L`, "Collected"]}
               />
-              <Bar dataKey="amount" fill="#6258e8" radius={[7, 7, 0, 0]} barSize={35} />
+              <Bar dataKey="amount" fill="var(--purple)" radius={[7, 7, 0, 0]} barSize={35} />
             </BarChart>
           </ResponsiveContainer>
         </div>

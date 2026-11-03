@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Portal theme colors and surface effects are defined as semantic tokens in `src/styles.css`; the imported portal stylesheet and charts consume them so both appearance modes remain coordinated.
