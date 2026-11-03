@@ -74,7 +74,6 @@ const navGroups = [
       { name: "Faculty & Staff", icon: UserCog },
       { name: "Batch Management", icon: Layers3 },
       { name: "Timetable", icon: CalendarDays },
-      { name: "Attendance", icon: BookOpenCheck },
       { name: "Academics", icon: ChartNoAxesCombined },
     ],
   },
@@ -96,7 +95,6 @@ const initialStudents = [
     course: "B.E. Artificial Intelligence",
     batch: "AIML-A · 2024",
     semester: "5th Semester",
-    attendance: 96,
     fees: "Paid",
     status: "Active",
     email: "aarav.sharma@example.edu",
@@ -109,7 +107,6 @@ const initialStudents = [
     course: "B.E. Computer Science",
     batch: "CSE-B · 2024",
     semester: "5th Semester",
-    attendance: 91,
     fees: "Pending",
     status: "Active",
     email: "diya.reddy@example.edu",
@@ -122,7 +119,6 @@ const initialStudents = [
     course: "B.E. Artificial Intelligence",
     batch: "AIML-A · 2024",
     semester: "5th Semester",
-    attendance: 78,
     fees: "Paid",
     status: "Active",
     email: "kabir.patel@example.edu",
@@ -135,7 +131,6 @@ const initialStudents = [
     course: "B.E. Information Science",
     batch: "ISE-A · 2023",
     semester: "7th Semester",
-    attendance: 88,
     fees: "Paid",
     status: "Active",
     email: "ananya.iyer@example.edu",
@@ -148,7 +143,6 @@ const initialStudents = [
     course: "B.E. Computer Science",
     batch: "CSE-A · 2025",
     semester: "3rd Semester",
-    attendance: 69,
     fees: "Pending",
     status: "Review",
     email: "vihaan.rao@example.edu",
@@ -161,7 +155,6 @@ const initialStudents = [
     course: "B.E. Artificial Intelligence",
     batch: "AIML-B · 2024",
     semester: "5th Semester",
-    attendance: 94,
     fees: "Paid",
     status: "Active",
     email: "sara.thomas@example.edu",
@@ -174,7 +167,6 @@ const initialStudents = [
     course: "B.E. Electronics",
     batch: "ECE-A · 2023",
     semester: "7th Semester",
-    attendance: 83,
     fees: "Pending",
     status: "Active",
     email: "arjun.nair@example.edu",
@@ -273,14 +265,6 @@ const enrollmentData = [
   { month: "Oct", students: 1090, admissions: 165 },
   { month: "Nov", students: 1180, admissions: 142 },
   { month: "Dec", students: 1248, admissions: 120 },
-];
-const attendanceData = [
-  { day: "Mon", value: 91 },
-  { day: "Tue", value: 94 },
-  { day: "Wed", value: 88 },
-  { day: "Thu", value: 96 },
-  { day: "Fri", value: 92 },
-  { day: "Sat", value: 84 },
 ];
 const financeData = [
   { month: "Jun", amount: 28 },
@@ -414,7 +398,6 @@ export default function App() {
         );
         const filter =
           studentFilter === "All students" ||
-          (studentFilter === "Low attendance" && s.attendance < 80) ||
           (studentFilter === "Fee pending" && s.fees === "Pending") ||
           (studentFilter === "Active" && s.status === "Active");
         return matches && filter;
@@ -429,7 +412,6 @@ export default function App() {
       {
         ...newStudent,
         semester: "1st Semester",
-        attendance: 100,
         fees: "Pending",
         status: "Active",
         phone: "Not provided",
@@ -452,13 +434,11 @@ export default function App() {
     showToast(`Application ${id} marked ${stage.toLowerCase()}.`);
   };
   const exportStudents = () => {
-    const header = ["Student ID", "Name", "Course", "Batch", "Attendance", "Fees", "Status"];
     const rows = filteredStudents.map((s) => [
       s.id,
       s.name,
       s.course,
       s.batch,
-      s.attendance + "%",
       s.fees,
       s.status,
     ]);
@@ -591,9 +571,6 @@ export default function App() {
                     <span className="dot purple-dot" /> 4 admission applications need review.
                   </p>
                   <p>
-                    <span className="dot orange-dot" /> 12 students have low attendance.
-                  </p>
-                  <p>
                     <span className="dot green-dot" /> Monthly report is ready to view.
                   </p>
                   <button
@@ -646,7 +623,6 @@ export default function App() {
           {active === "Faculty & Staff" && <FacultyPage search={search} onToast={showToast} />}
           {active === "Batch Management" && <BatchesPage onToast={showToast} />}
           {active === "Timetable" && <TimetablePage onToast={showToast} />}
-          {active === "Attendance" && <AttendancePage onToast={showToast} />}
           {active === "Academics" && <AcademicsPage onToast={showToast} />}
           {active === "Fees & Finance" && <FinancePage onToast={showToast} />}
           {active === "Reports" && <ReportsPage onExport={exportStudents} onToast={showToast} />}
@@ -764,10 +740,6 @@ export default function App() {
               <span>{modal.student.phone}</span>
             </div>
             <div className="profile-modal-stats">
-              <div>
-                <small>Attendance</small>
-                <strong>{modal.student.attendance}%</strong>
-              </div>
               <div>
                 <small>Fee status</small>
                 <strong>{modal.student.fees}</strong>
@@ -927,14 +899,6 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
           tone="orange"
           note="this admission cycle"
         />
-        <MetricCard
-          title="Attendance today"
-          value="92.4%"
-          change="2.1%"
-          icon={CalendarCheckIcon}
-          tone="pink"
-          note="vs. last week"
-        />
       </div>
       <div className="content-grid chart-row">
         <section className="panel enrollment-panel">
@@ -1012,81 +976,6 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-        </section>
-        <section className="panel attendance-panel">
-          <div className="panel-heading">
-            <div>
-              <div className="eyebrow">DAILY SNAPSHOT</div>
-              <h3>Attendance overview</h3>
-              <p>Average attendance this week</p>
-            </div>
-            <button
-              className="icon-button subtle"
-              onClick={() => onNavigate("Attendance")}
-              aria-label="Open attendance"
-            >
-              <ArrowUpRight size={18} />
-            </button>
-          </div>
-          <div className="attendance-summary">
-            <div className="donut-wrap">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[{ value: 92.4 }, { value: 7.6 }]}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={48}
-                    outerRadius={62}
-                    startAngle={90}
-                    endAngle={-270}
-                    dataKey="value"
-                    stroke="none"
-                    cornerRadius={8}
-                  >
-                    <Cell fill="#6258e8" />
-                    <Cell fill="var(--chart-track)" />
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="donut-center">
-                <strong>
-                  92.4<span>%</span>
-                </strong>
-                <small>Present</small>
-              </div>
-            </div>
-            <div className="attendance-stats">
-              <div>
-                <span className="mini-dot purple-bg" />
-                Present<strong>1,153</strong>
-              </div>
-              <div>
-                <span className="mini-dot gray-bg" />
-                Absent<strong>95</strong>
-              </div>
-              <div>
-                <span className="mini-dot mint-bg" />
-                On leave<strong>28</strong>
-              </div>
-            </div>
-          </div>
-          <div className="weekly-bars">
-            {attendanceData.map((d) => (
-              <div className="weekly-bar" key={d.day}>
-                <div className="bar-track">
-                  <div
-                    className={`bar-fill ${d.value < 88 ? "bar-warning" : ""}`}
-                    style={{ height: `${d.value}%` }}
-                  />
-                </div>
-                <span>{d.day}</span>
-              </div>
-            ))}
-          </div>
-          <button className="panel-link" onClick={() => onNavigate("Attendance")}>
-            View attendance report <ArrowUpRight size={15} />
-          </button>
         </section>
       </div>
       <div className="content-grid lower-row">
@@ -1286,9 +1175,6 @@ function Dashboard({ students, admissions, onNavigate, onToast }) {
     </div>
   );
 }
-function CalendarCheckIcon(props) {
-  return <CalendarDays {...props} />;
-}
 
 function StudentsPage({ students, filter, setFilter, search, setSearch, onAdd, onExport, onView }) {
   return (
@@ -1308,15 +1194,6 @@ function StudentsPage({ students, filter, setFilter, search, setSearch, onAdd, o
       <div className="mini-stats-grid">
         <MiniStat label="Total students" value="1,248" delta="+12.8%" icon={GraduationCap} />
         <MiniStat label="Active students" value="1,201" delta="96.2% of total" icon={BadgeCheck} />
-        <MiniStat
-          label="Low attendance"
-          value={students
-            .filter((s) => s.attendance < 80)
-            .length.toString()
-            .padStart(2, "0")}
-          delta="Needs attention"
-          icon={CircleAlert}
-        />
         <MiniStat
           label="Fee pending"
           value={students
@@ -1351,7 +1228,6 @@ function StudentsPage({ students, filter, setFilter, search, setSearch, onAdd, o
             >
               <option>All students</option>
               <option>Active</option>
-              <option>Low attendance</option>
               <option>Fee pending</option>
             </select>
             <button className="btn secondary compact" onClick={() => setFilter("All students")}>
@@ -1366,7 +1242,6 @@ function StudentsPage({ students, filter, setFilter, search, setSearch, onAdd, o
                 <th>STUDENT</th>
                 <th>STUDENT ID</th>
                 <th>COURSE / BATCH</th>
-                <th>ATTENDANCE</th>
                 <th>FEE STATUS</th>
                 <th>STATUS</th>
                 <th></th>
@@ -1391,19 +1266,6 @@ function StudentsPage({ students, filter, setFilter, search, setSearch, onAdd, o
                     <div className="course-cell">
                       <strong>{s.course.replace("B.E. ", "")}</strong>
                       <small>{s.batch}</small>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="attendance-cell">
-                      <div className="progress-track">
-                        <span
-                          style={{
-                            width: `${s.attendance}%`,
-                            background: s.attendance < 80 ? "#f0a34b" : "#25b8a8",
-                          }}
-                        />
-                      </div>
-                      <strong>{s.attendance}%</strong>
                     </div>
                   </td>
                   <td>
@@ -1900,180 +1762,6 @@ function TimetablePage({ onToast }) {
   );
 }
 
-function AttendancePage({ onToast }) {
-  return (
-    <div className="page-stack">
-      <SectionTitle
-        eyebrow="PRESENCE & PARTICIPATION"
-        title="Attendance"
-        subtitle="Identify attendance trends and students who may need support."
-        action={
-          <button
-            className="btn secondary"
-            onClick={() =>
-              onToast("Attendance report export can be connected to your data source.")
-            }
-          >
-            <Download size={16} /> Export report
-          </button>
-        }
-      />
-      <div className="mini-stats-grid">
-        <MiniStat
-          label="Overall attendance"
-          value="92.4%"
-          delta="+2.1% this week"
-          icon={ClipboardCheck}
-        />
-        <MiniStat
-          label="Present today"
-          value="1,153"
-          delta="92.4% of students"
-          icon={CircleCheck}
-        />
-        <MiniStat label="Absent today" value="95" delta="Needs review" icon={CircleAlert} />
-        <MiniStat label="Below 75%" value="24" delta="Follow-up recommended" icon={Activity} />
-      </div>
-      <div className="content-grid">
-        <section className="panel chart-panel-wide">
-          <div className="panel-heading">
-            <div>
-              <h3>Weekly attendance trend</h3>
-              <p>Average daily attendance percentage</p>
-            </div>
-            <Badge type="green">+2.1% this week</Badge>
-          </div>
-          <div className="large-chart">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart
-                data={attendanceData}
-                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-              >
-                <defs>
-                  <linearGradient id="attGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#25b8a8" stopOpacity={0.22} />
-                    <stop offset="100%" stopColor="#25b8a8" stopOpacity={0.01} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 5" vertical={false} stroke="var(--chart-grid)" />
-                <XAxis
-                  dataKey="day"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fill: "var(--muted)", fontSize: 12 }}
-                />
-                <YAxis
-                  domain={[60, 100]}
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fill: "var(--muted)", fontSize: 12 }}
-                />
-                <Tooltip
-                  contentStyle={{
-                    borderRadius: 12,
-                    border: "1px solid var(--border)",
-                    background: "var(--panel)",
-                    color: "var(--text)",
-                  }}
-                  formatter={(v) => [`${v}%`, "Attendance"]}
-                />
-                <Area
-                  dataKey="value"
-                  type="monotone"
-                  stroke="#25b8a8"
-                  strokeWidth={3}
-                  fill="url(#attGrad)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </section>
-        <section className="panel">
-          <div className="panel-heading">
-            <div>
-              <h3>Attendance by department</h3>
-              <p>Today's overview</p>
-            </div>
-          </div>
-          {[
-            ["Computer Science", 94],
-            ["Artificial Intelligence", 92],
-            ["Information Science", 91],
-            ["Electronics", 88],
-          ].map(([n, v]) => (
-            <div className="department-progress" key={n}>
-              <div>
-                <span>{n}</span>
-                <strong>{v}%</strong>
-              </div>
-              <div className="progress-track">
-                <span style={{ width: `${v}%` }} />
-              </div>
-            </div>
-          ))}
-          <div className="info-callout">
-            <CircleAlert size={17} />
-            <span>24 students are below the 75% attendance threshold and may need follow-up.</span>
-          </div>
-        </section>
-      </div>
-      <section className="panel table-panel">
-        <div className="table-toolbar">
-          <div>
-            <h3>Students needing attention</h3>
-            <p>Sample records with attendance below 80%.</p>
-          </div>
-          <Badge type="orange">Review recommended</Badge>
-        </div>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>STUDENT</th>
-                <th>STUDENT ID</th>
-                <th>BATCH</th>
-                <th>ATTENDANCE</th>
-                <th>RECOMMENDED ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {initialStudents
-                .filter((s) => s.attendance < 80)
-                .map((s) => (
-                  <tr key={s.id}>
-                    <td>
-                      <div className="table-person">
-                        <Avatar name={s.name} color={s.color} size="small" />
-                        <strong>{s.name}</strong>
-                      </div>
-                    </td>
-                    <td className="mono">{s.id}</td>
-                    <td>{s.batch}</td>
-                    <td>
-                      <div className="attendance-cell">
-                        <div className="progress-track">
-                          <span style={{ width: `${s.attendance}%`, background: "#f0a34b" }} />
-                        </div>
-                        <strong>{s.attendance}%</strong>
-                      </div>
-                    </td>
-                    <td>
-                      <button
-                        className="btn tiny secondary"
-                        onClick={() => onToast(`Follow-up flagged for ${s.name} in the demo.`)}
-                      >
-                        Flag for follow-up
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </div>
-  );
-}
 
 function AcademicsPage({ onToast }) {
   const courses = [
@@ -2314,7 +2002,6 @@ function ReportsPage({ onExport, onToast }) {
   const reports = [
     ["Student directory", "Current enrolment, batch and status details", "Students", "purple"],
     ["Admissions summary", "Application pipeline and decision outcomes", "Admissions", "mint"],
-    ["Attendance report", "Daily and monthly attendance overview", "Attendance", "orange"],
     ["Academic performance", "Course pass rates and score summary", "Academics", "pink"],
     ["Fee collection summary", "Collections and outstanding balance overview", "Finance", "purple"],
     ["Faculty workload", "Department assignments and workload overview", "Staff", "mint"],
