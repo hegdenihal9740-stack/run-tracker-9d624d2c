@@ -623,7 +623,6 @@ export default function App() {
           {active === "Faculty & Staff" && <FacultyPage search={search} onToast={showToast} />}
           {active === "Batch Management" && <BatchesPage onToast={showToast} />}
           {active === "Timetable" && <TimetablePage onToast={showToast} />}
-          {active === "Attendance" && <AttendancePage onToast={showToast} />}
           {active === "Academics" && <AcademicsPage onToast={showToast} />}
           {active === "Fees & Finance" && <FinancePage onToast={showToast} />}
           {active === "Reports" && <ReportsPage onExport={exportStudents} onToast={showToast} />}
